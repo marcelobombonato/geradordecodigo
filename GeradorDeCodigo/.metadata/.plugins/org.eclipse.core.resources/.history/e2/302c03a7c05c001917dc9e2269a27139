@@ -1,0 +1,124 @@
+package com.br.geradorcodigo;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class GeradorApplication {
+
+	public static void main(String[] args) throws IOException {
+
+		 Scanner ler = new Scanner(System.in);
+		 
+		    List<String> listaNomeColuna = new ArrayList<String>();
+		    List<String> listaVariavelColuna = new ArrayList<String>();
+		    List<String> listaTipoColuna = new ArrayList<String>();
+		    
+		    int maisUma = 1;
+		    
+		    while(maisUma == 1) {
+			    System.out.printf("Insira o nome da coluna:\n");
+			    listaNomeColuna.add(ler.nextLine());
+			    
+			    System.out.printf("Insira o nome da variável da coluna:\n");
+			    variavelColuna = ler.nextLine();
+			    
+			    System.out.printf("Insira o nome do tipo da coluna:\n");
+			    tipoColuna = ler.nextLine();
+			    
+			    System.out.printf("Deseja inserir mais uma coluna? (S=1/N=0):\n");
+			    maisUma = ler.nextInt();
+		    }
+//		    System.out.printf("\n+--Resultado--+\n");
+//		    for (i=1; i<=10; i++) {
+//		      System.out.printf("| %2d * %d = %2d |\n", i, n, (i*n));
+//		    }
+//		    System.out.printf("+-------------+\n");
+		
+//		String nomeArquivo = "Controller";
+//		
+////		File f = new File("C:\\Users\\marce\\eclipseWorkspace\\GeradorDeCodigo\\com.br.geradorcodigo\\ArquivosGerados"
+////							, nomeArquivo + ".java");
+////		if(!f.exists())
+////			try {
+////				f.createNewFile();
+////			} catch (IOException e) {
+////				// TODO Auto-generated catch block
+////				e.printStackTrace();
+////			}
+////		
+//		
+//		
+//		List<String> lines = Arrays.asList("The first line", "The second line");
+//		Path file = Paths.get("C:\\Users\\marce\\eclipseWorkspace\\GeradorDeCodigo\\com.br.geradorcodigo\\ArquivosGerados\\arquivo.java");
+//		Files.write(file, gerarController(), Charset.forName("UTF-8"));
+	}
+	
+	private static List<String> gerarController() {
+		
+		String nomeEntidade = "CAT_EGORIA";
+		String nomeClasse = "Categoria";
+		String col1 = "idCol";
+		String tipoCol1 = "Integer";
+		String col2 = "nomeCol";
+		String tipoCol2 = "String";
+		String col3 = "dateCol";
+		String tipoCol3 = "Date";
+		
+		List<String> lines = new ArrayList<String>();
+		
+		lines.add("import java.io.Serializable;");
+		lines.add("import java.util.ArrayList;");
+		lines.add("import java.util.List;");
+		lines.add("import javax.persistence.Entity;");
+		lines.add("import javax.persistence.GeneratedValue;");
+		lines.add("import javax.persistence.GenerationType;");
+		lines.add("import javax.persistence.Id;");
+		lines.add("");
+		lines.add("");
+		lines.add("");
+		lines.add("@Entity(name = \""+nomeEntidade+"\")");
+		lines.add("public class "+nomeClasse+" implements Serializable {");
+		lines.add("");
+		lines.add("		private static final long serialVersionUID = 1L;");
+		lines.add("");
+		lines.add("		@Id");
+		lines.add("		@GeneratedValue(strategy=GenerationType.IDENTITY)");
+		lines.add("		private "+tipoCol1+" "+col1);
+		lines.add("		private "+tipoCol2+" "+col2);
+		
+		return lines;
+	}
+
+	private static void montaEntradaColunas() {
+		
+		List<String> nomeColuna = new ArrayList<String>();
+		List<String> variavelColuna = new ArrayList<String>();
+		List<String> tipoColuna = new ArrayList<String>();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,110 @@
+package com.br.geradorcodigo;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class GeradorApplication {
+
+	public static void main(String[] args) throws IOException {
+
+		Scanner ler = new Scanner(System.in);
+		List<String> listaNomeColuna = new ArrayList<String>();
+		List<String> listaVariavelColuna = new ArrayList<String>();
+		List<String> listaTipoColuna = new ArrayList<String>();
+
+		System.out.printf("Insira o nome da Entidade:\n");
+		String entidade = ler.nextLine();
+		
+		System.out.printf("Insira o nome da Entidade no banco de dados:\n");
+		String entidadeBD = ler.nextLine();
+
+
+		int maisUma = 1;
+
+		while (maisUma == 1) {
+			System.out.printf("Insira o nome da coluna no Banco de Dados:\n");
+			listaNomeColuna.add(ler.nextLine());
+
+			System.out.printf("Insira o nome da variável da coluna:\n");
+			listaVariavelColuna.add(ler.nextLine());
+
+			System.out.printf("Insira o nome do tipo da coluna:\n");
+			listaTipoColuna.add(ler.nextLine());
+
+			System.out.printf("Deseja inserir mais uma coluna? (S=1/N=0):\n");
+			maisUma = ler.nextInt();
+			
+			System.out.printf("Próxima coluna!!");
+
+		}
+		
+		Path file = Paths.get("C:\\Users\\marce\\eclipseWorkspace\\GeradorDeCodigo\\com.br.geradorcodigo\\ArquivosGerados\\arquivo.java");
+		Files.write(file, gerarController(entidade, entidadeBD, listaNomeColuna, listaVariavelColuna, listaTipoColuna), Charset.forName("UTF-8"));
+	}
+
+	private static List<String> gerarController(String entidade, String entidadeBD, List<String> listaNomeColuna, List<String> listaVariavelColuna, List<String> listaTipoColuna) {
+
+		List<String> lines = new ArrayList<String>();
+
+		lines.add("import java.io.Serializable;");
+		lines.add("import java.util.ArrayList;");
+		lines.add("import java.util.List;");
+		lines.add("import javax.persistence.Entity;");
+		lines.add("import javax.persistence.GeneratedValue;");
+		lines.add("import javax.persistence.GenerationType;");
+		lines.add("import javax.persistence.Id;");
+		lines.add("");
+		lines.add("");
+		lines.add("");
+		lines.add("@Entity(name = \"" + entidadeBD + "\")");
+		lines.add("public class " + entidade + " implements Serializable {");
+		lines.add("");
+		lines.add("		private static final long serialVersionUID = 1L;");
+		lines.add("");
+		lines.add("		@Id");
+		lines.add("		@GeneratedValue(strategy=GenerationType.IDENTITY)");
+		lines.add("		@Column(name=\""+listaNomeColuna.get(0)+"\") ");
+		lines.add("		private " + listaTipoColuna.get(0) + " " + listaVariavelColuna.get(0));
+		lines.add("");
+		for(int i=1; i < listaNomeColuna.size(); i++) {
+			lines.add("");
+			lines.add("		@Column(name=\""+listaNomeColuna.get(i)+"\") ");
+			lines.add("		private " + listaTipoColuna.get(i) + " " + listaVariavelColuna.get(i));
+		}
+		
+		for(int i=1; i < listaNomeColuna.size(); i++) {
+			
+			String variavelComLetraMaiuscula = listaVariavelColuna.get(i).substring(0,1).toUpperCase().concat(listaVariavelColuna.get(i).substring(1));
+			lines.add("");
+			lines.add("		public "+listaTipoColuna.get(i)+" get"+variavelComLetraMaiuscula+"() {");
+			lines.add("			return "+listaVariavelColuna.get(i)+";");
+			lines.add("		}");
+			lines.add("");
+			lines.add("		public void set"+variavelComLetraMaiuscula+"("+listaTipoColuna.get(i)+" "+listaVariavelColuna.get(i)+") {");
+			lines.add("			this."+listaVariavelColuna.get(i)+" = "+listaVariavelColuna.get(i)+";");
+			lines.add("		}");
+		}
+		
+		lines.add("}");
+		
+		return lines;
+	}
+
+	private static void montaEntradaColunas() {
+
+		List<String> nomeColuna = new ArrayList<String>();
+		List<String> variavelColuna = new ArrayList<String>();
+		List<String> tipoColuna = new ArrayList<String>();
+	}
+}

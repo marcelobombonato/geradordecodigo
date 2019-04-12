@@ -1,0 +1,17 @@
+package com.br.geradorcodigo;
+
+import java.io.File;
+
+public class GeradorApplication {
+
+	public static void main(String[] args) {
+
+		const nomeArquivo = "Controller";
+		
+		File f = new File("C:\\Users\\marce\\eclipseWorkspace\\GeradorDeCodigo\\com.br.geradorcodigo\\ArquivosGerados"
+							, nomeArquivo + ".java");
+		if(!f.exists())//check if the file already exists
+		    f.createNewFile();
+	}
+
+}

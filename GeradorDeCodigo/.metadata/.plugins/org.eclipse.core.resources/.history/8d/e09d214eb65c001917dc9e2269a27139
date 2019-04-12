@@ -1,0 +1,13 @@
+package com.br.geradorcodigo;
+
+public class GeradorApplication {
+
+	public static void main(String[] args) {
+
+		
+		File f = new File(src, name + ".java");
+		if(!f.exists())//check if the file already exists
+		    f.createNewFile();
+	}
+
+}
